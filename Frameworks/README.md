@@ -528,6 +528,24 @@ zeus:~ danielgil$ minikube start
 🏄  Done! Thank you for using minikube!
 ```
 
+#### Check status
+To check if the minikube is running:
+
+``` bash
+$ minikube status
+host: Running
+kubelet: Running
+apiserver: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 192.168.99.100
+``` 
+
+#### Stop minikube
+``` bash
+$ minikube stop
+✋  Stopping "minikube" in virtualbox ...
+🛑  "minikube" stopped.
+```
+
 #### Check IP Kubernetes is running
 
 Display the local IP Kubernetes is running on my machine:
