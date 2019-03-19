@@ -1,5 +1,4 @@
-# Advanced Go Microservices
-Examples of course [Advanced Cloud Native Go](https://www.linkedin.com/learning/advanced-cloud-native-go/) from linkedIn.
+# Go Microservices Frameworks
 
 ## Running Gin Web Framework
 
@@ -188,18 +187,27 @@ docker version
 The Dockerfile is essentially the build instructions to build the image.
 
 ``` 
+# golang docker base image
 FROM golang:1.12.0-alpine
 
+# install the gin web framework (and install required packages for executing `go get`)
 RUN apk update && apk upgrade && apk add --no-cache bash git
 RUN go get github.com/gin-gonic/gin
 
+# copy local sources into this docker image (defining an environment variable SOURCES)
 ENV SOURCES /go/src/github.com/daniel-gil/advanced-go-microservices/Frameworks/Gin-Web/
 COPY . ${SOURCES}
 
+# change into the SOURCES directory and call `go build`
 RUN cd ${SOURCES} && CGO_ENABLED=0 go build
 
+# define the work directory
 WORKDIR ${SOURCES}
+
+# define the entry-poing command (it is, the Gin-Web executable after building the binary)
 CMD ${SOURCES}Gin-Web
+
+# expose port 8080
 EXPOSE 8080
 ```
 
@@ -319,16 +327,16 @@ Stopping gin-web_microservice_1 ... done
 ### Tagging and pushing to remote registry
 
 #### Tag
-We can tag a docker image with (using the github username):
+We can tag a docker image with (using the docker hub username):
 ```
-docker tag gin-web:1.0.1 daniel-gil/gin-web:1.0.1
+docker tag gin-web:1.0.1 danigilmayol/gin-web:1.0.1
 ```
 
 Once tagged we can list again the docker images to verify that the new tagged is listed:
 ```
 $ docker images
 REPOSITORY             TAG                 IMAGE ID            CREATED             SIZE
-daniel-gil/gin-web     1.0.1               c7e5eedbebcc        14 minutes ago      462MB
+danigilmayol/gin-web   1.0.1               c7e5eedbebcc        14 minutes ago      462MB
 gin-web                1.0.1               c7e5eedbebcc        14 minutes ago      462MB
 ```
 
@@ -337,16 +345,16 @@ Now we can use the following command for pushing the tagged image to the docker 
 ```
 $ docker push danigilmayol/gin-web:1.0.1
 The push refers to repository [docker.io/danigilmayol/gin-web]
-d8f2f4701d92: Layer already exists 
-537a319b1fef: Layer already exists 
-938b36e30905: Layer already exists 
-2e47f66d7083: Layer already exists 
+2aa85349ad3e: Pushed 
+9b0c5f6a6b31: Pushed 
+4d4949d3b5fe: Pushed 
+0a8c8ab90b25: Pushed 
 a124fdb5e3b1: Layer already exists 
 dbf140e0475c: Layer already exists 
 41a6c6e6c287: Layer already exists 
 4afd4ab746df: Layer already exists 
 bcf2f368fe23: Layer already exists 
-1.0.1: digest: sha256:e92c121c052b303b27ca854ea50d36f95bc75999d87240f5d465ebf7ca3f2a57 size: 2209
+1.0.1: digest: sha256:bbb37c779a6eb997284db1af6d8c9993cb32709bda581b403c7a79065c4240a3 size: 2209
 ```
 
 Now the docker image is available from docker hub.
@@ -448,7 +456,7 @@ spec:
 ```
 
 ### Minikube
-We are using minikube for local development.
+Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 
 #### Installation
 To install minikube, we need first to install a Hypervisor (eg. VirtualBox) and then kubectl. For more information check this link: https://kubernetes.io/docs/tasks/tools/install-minikube/.
@@ -492,7 +500,7 @@ All Formula dependencies satisfied.
 ```
 
 
-#### Start
+#### Starting the cluster
 ```
 $ minikube start
 😄  minikube v0.35.0 on darwin (amd64)
@@ -569,7 +577,7 @@ gin-web   3         3         3            0           2d
 ```
 
 ##### List pods
-List of pods:
+Display the list of pods:
 ```
 $ kubectl get pods
 NAME                       READY     STATUS             RESTARTS   AGE
@@ -587,7 +595,7 @@ $ kubectl logs gin-web-567fd44c84-8n65r
 here we can see that Kubernetes pings our microservice regularly to check if it is alive and healthy.
 
 ##### List services
-List services:
+Display the list of services:
 ```
 $ kubectl get services
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
@@ -601,3 +609,9 @@ So we have the `gin-web` service running on port 9090 (and the node port 31497).
 $ minikube service gin-web
 ```
 and it will accesss this Kubernetes service from within a web browser.
+
+##### Scaling
+Rescale the number of replicas:
+```
+$ kubectl scale deployment gin-web --replicas=8
+```

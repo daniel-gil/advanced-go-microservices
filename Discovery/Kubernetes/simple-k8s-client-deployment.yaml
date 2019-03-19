@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.7.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: simple-k8s-client
+  name: simple-k8s-client
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: simple-k8s-client
+    spec:
+      containers:
+      - env:
+        - name: SERVICE_URL
+          valueFrom: 
+            configMapKeyRef:
+              name: simple-k8s-config
+              key: service.url
+        image: simple-k8s-client:1.0.1
+        name: simple-k8s-client
+        resources: {}
+      restartPolicy: Always
+status: {}

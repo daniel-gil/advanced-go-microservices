@@ -1,0 +1,371 @@
+{
+	"variables": [],
+	"info": {
+		"name": "AdvancedCloudNativeGo",
+		"_postman_id": "d3a57dc7-713a-a049-fcb0-c4764de21c92",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Session 1",
+			"description": "",
+			"item": [
+				{
+					"name": "Request Ping",
+					"request": {
+						"url": "http://localhost:8080/ping",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"url": "http://localhost:8080/api/books",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Book",
+					"request": {
+						"url": "http://localhost:8080/api/books",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New book\",\n\t\"author\": \"Postname\",\n\t\"isbn\": \"1234567890\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book 1234567890",
+					"request": {
+						"url": "http://localhost:8080/api/books/1234567890",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book 1234567890",
+					"request": {
+						"url": "http://localhost:8080/api/books/1234567890",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New book(Update)\",\n    \"author\": \"Postname\",\n    \"isbn\": \"1234567890\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book 1234567890",
+					"request": {
+						"url": "http://localhost:8080/api/books/1234567890",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session 2",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Consul Catalog Services",
+					"request": {
+						"url": "http://localhost:8500/v1/catalog/services",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consul Agent Services",
+					"request": {
+						"url": "http://localhost:8500/v1/agent/services",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Register Consul Agent Gin-Web-01",
+					"request": {
+						"url": "http://localhost:8500/v1/agent/service/register",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ID\": \"gin-web-01\",\n\t\"Name\": \"gin-web\",\n\t\"Tags\": [\n\t\t\"cloud-native-go\",\n\t\t\"v1\"\n\t],\n\t\"Address\": \"gin-web-01\",\n\t\"Port\": 8080,\n\t\"EnableTagOverride\": false,\n\t\"check\": {\n\t\t\"id\": \"ping\", \n\t\t\"name\": \"HTTP API on port 8080\",\n\t\t\"http\": \"http://gin-web-01:8080/ping\",\n\t\t\"interval\": \"5s\",\n\t\t\"timeout\": \"1s\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Register Consul Agent Gin-Web-02",
+					"request": {
+						"url": "http://localhost:8500/v1/agent/service/register",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ID\": \"gin-web-02\",\n\t\"Name\": \"gin-web\",\n\t\"Tags\": [\n\t\t\"cloud-native-go\",\n\t\t\"v1\"\n\t],\n\t\"Address\": \"gin-web-02\",\n\t\"Port\": 9090,\n\t\"EnableTagOverride\": false,\n\t\"check\": {\n\t\t\"id\": \"ping\", \n\t\t\"name\": \"HTTP API on port 9090\",\n\t\t\"http\": \"http://gin-web-02:9090/ping\",\n\t\t\"interval\": \"5s\",\n\t\t\"timeout\": \"1s\"\n\t}\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consul Health Gin-Web All",
+					"request": {
+						"url": "http://localhost:8500/v1/health/service/gin-web",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consul Health Gin-Web Passing",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8500/v1/health/service/gin-web?passing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"v1",
+								"health",
+								"service",
+								"gin-web"
+							],
+							"query": [
+								{
+									"key": "passing",
+									"value": "",
+									"equals": false,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Consul Critical Health Checks",
+					"request": {
+						"url": "http://localhost:8500/v1/health/state/critical",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gin Web All Keys",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8500/v1/kv/?keys",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"v1",
+								"kv",
+								""
+							],
+							"query": [
+								{
+									"key": "keys",
+									"value": "",
+									"equals": false,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Gin Web Message Key",
+					"request": {
+						"url": "http://localhost:8500/v1/kv/gin-web/message",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Hello Gin Framework."
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gin Web All Configs",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8500/v1/kv/gin-web?recurse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"v1",
+								"kv",
+								"gin-web"
+							],
+							"query": [
+								{
+									"key": "recurse",
+									"value": "",
+									"equals": false,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gin Web Message Config",
+					"request": {
+						"url": "http://localhost:8500/v1/kv/gin-web/message",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gin Web Message Config(Raw)",
+					"request": {
+						"url": {
+							"raw": "http://localhost:8500/v1/kv/gin-web/message?raw=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8500",
+							"path": [
+								"v1",
+								"kv",
+								"gin-web",
+								"message"
+							],
+							"query": [
+								{
+									"key": "raw",
+									"value": "true",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create Gin Web Message Key (Update)",
+					"request": {
+						"url": "http://localhost:8500/v1/kv/gin-web/message",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Hello Gin Framework (Updated)."
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Gin Web Configs",
+					"request": {
+						"url": "http://localhost:8500/v1/kv/foo",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
