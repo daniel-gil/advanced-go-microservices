@@ -12,4 +12,7 @@ The [Cloud Native Interactive Landscape](https://github.com/cncf/landscape) filt
 
 ## Sections
 1. [Go Microservices Frameworks](./Frameworks/README.md): Gin-Gonic, Docker, Kubernetes, minikube.
-2. [Service discovery and configuration](./Discovery/README.md): Consul.
+2. Service discovery and configuration: Consul.
+    - [Service discovery](./Discovery/Consul/README.md)
+    - [Service configuration](./Configuration/Consul/README.md)
+    - [Go implementation of microservice registration](./Discovery/Simple/README.md)
