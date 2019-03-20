@@ -4,7 +4,7 @@ Examples from linkedIn course [Advanced Cloud Native Go](https://www.linkedin.co
 ## Introduction
 Building blocks and functions of a cloud native application platform
 
-![Building blocks and functions of a cloud native application platform](/images/building_blocks.jpg)
+![Building blocks and functions of a cloud native application platform](./Images/building_blocks.jpg)
 
 ## Cloud Native Interactive Landscape
 
