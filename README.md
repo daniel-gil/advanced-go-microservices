@@ -1,8 +1,15 @@
 # Advanced Go Microservices
-Examples of course [Advanced Cloud Native Go](https://www.linkedin.com/learning/advanced-cloud-native-go/) from linkedIn.
+Examples from linkedIn course [Advanced Cloud Native Go](https://www.linkedin.com/learning/advanced-cloud-native-go/).
 
-## Go Microservices Frameworks
-[Section 1](./Frameworks/README.md): Gin-Gonic, Docker, Kubernetes, minikube.
+## Introduction
+Building blocks and functions of a cloud native application platform
 
-## Service discovery and configuration
-[Section 2](./Discovery/README.md): Consul.
+![Building blocks and functions of a cloud native application platform](/images/building_blocks.jpg)
+
+## Cloud Native Interactive Landscape
+
+The [Cloud Native Interactive Landscape](https://github.com/cncf/landscape) filters and sorts hundreds of projects and products, and shows details including GitHub stars, funding or market cap, first and last commits, contributor counts, headquarters location, and recent tweets. Check the current version of [landscape map](https://landscape.cncf.io/images/landscape.png).
+
+## Sections
+1. [Go Microservices Frameworks](./Frameworks/README.md): Gin-Gonic, Docker, Kubernetes, minikube.
+2. [Service discovery and configuration](./Discovery/README.md): Consul.
