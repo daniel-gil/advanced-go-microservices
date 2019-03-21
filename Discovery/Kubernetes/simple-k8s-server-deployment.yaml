@@ -22,7 +22,7 @@ spec:
       - env:
         - name: PORT
           value: "9090"
-        image: simple-k8s-server:1.0.1
+        image: danigilmayol/simple-k8s-server:1.0.1
         name: simple-k8s-server
         ports:
         - containerPort: 9090

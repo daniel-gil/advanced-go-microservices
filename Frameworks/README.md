@@ -591,23 +591,48 @@ List the deployments in Kubernetes (we have 3 available because we specify 3 rep
 ```
 $ kubectl get deployments
 NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-gin-web   3         3         3            0           2d
+gin-web   3         3         3            3           1m
 ```
 
 ##### List pods
 Display the list of pods:
 ```
 $ kubectl get pods
-NAME                       READY     STATUS             RESTARTS   AGE
-gin-web-567fd44c84-8n65r   0/1       ImagePullBackOff   0          2d
-gin-web-567fd44c84-pm2t6   0/1       ImagePullBackOff   0          2d
-gin-web-567fd44c84-x57jg   0/1       ImagePullBackOff   0          2d
+NAME                       READY     STATUS    RESTARTS   AGE
+gin-web-7bfff6b569-fb6v2   1/1       Running   0          1m
+gin-web-7bfff6b569-l26bp   1/1       Running   0          1m
+gin-web-7bfff6b569-qnl8f   1/1       Running   0          1m
 ```
 
 ##### Logs
 Display the logs of a pod:
 ``` 
-$ kubectl logs gin-web-567fd44c84-8n65r
+$ kubectl logs gin-web-7bfff6b569-fb6v2
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:   export GIN_MODE=release
+ - using code:  gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /ping                     --> main.main.func1 (3 handlers)
+[GIN-debug] GET    /hello                    --> main.main.func2 (3 handlers)
+[GIN-debug] GET    /api/books                --> main.main.func3 (3 handlers)
+[GIN-debug] POST   /api/books                --> main.main.func4 (3 handlers)
+[GIN-debug] GET    /api/books/:isbn          --> main.main.func5 (3 handlers)
+[GIN-debug] PUT    /api/books/:isbn          --> main.main.func6 (3 handlers)
+[GIN-debug] DELETE /api/books/:isbn          --> main.main.func7 (3 handlers)
+[GIN-debug] Loaded HTML Templates (2): 
+        - 
+        - index.html
+
+[GIN-debug] GET    /favicon.ico              --> github.com/gin-gonic/gin.(*RouterGroup).StaticFile.func1 (3 handlers)
+[GIN-debug] HEAD   /favicon.ico              --> github.com/gin-gonic/gin.(*RouterGroup).StaticFile.func1 (3 handlers)
+[GIN-debug] GET    /                         --> main.main.func8 (3 handlers)
+[GIN-debug] Listening and serving HTTP on :9090
+[GIN] 2019/03/21 - 09:10:09 | 200 |      14.391µs |      172.17.0.1 | GET      /ping
+[GIN] 2019/03/21 - 09:10:11 | 200 |      16.956µs |      172.17.0.1 | GET      /ping
+[GIN] 2019/03/21 - 09:10:19 | 200 |      22.106µs |      172.17.0.1 | GET      /ping
+[GIN] 2019/03/21 - 09:10:21 | 200 |       7.108µs |      172.17.0.1 | GET      /ping
 ``` 
 
 here we can see that Kubernetes pings our microservice regularly to check if it is alive and healthy.
@@ -617,8 +642,8 @@ Display the list of services:
 ```
 $ kubectl get services
 NAME         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
-gin-web      NodePort    10.110.28.47   <none>        9090:31497/TCP   19m
-kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          2d
+gin-web      NodePort    10.110.28.47   <none>        9090:31497/TCP   2d
+kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          5d
 ``` 
 
 ##### Access a service

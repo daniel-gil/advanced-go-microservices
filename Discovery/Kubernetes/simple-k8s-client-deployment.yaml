@@ -24,7 +24,7 @@ spec:
             configMapKeyRef:
               name: simple-k8s-config
               key: service.url
-        image: simple-k8s-client:1.0.1
+        image: danigilmayol/simple-k8s-client:1.0.1
         name: simple-k8s-client
         resources: {}
       restartPolicy: Always
