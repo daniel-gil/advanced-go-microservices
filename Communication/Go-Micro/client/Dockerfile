@@ -8,7 +8,7 @@ RUN go get -u github.com/micro/micro && \
     go get github.com/micro/go-plugins/wrapper/breaker/hystrix && \
     go get github.com/afex/hystrix-go/hystrix
 
-ENV SOURCES /go/src/AdvancCommunication/Go-Micro/
+ENV SOURCES /go/src/github.com/daniel-gil/advanced-go-microservices/Communication/Go-Micro/
 COPY . ${SOURCES}
 
 RUN cd ${SOURCES}client/ && CGO_ENABLED=0 go build
