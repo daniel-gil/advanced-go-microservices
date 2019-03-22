@@ -1,4 +1,4 @@
-FROM golang:1.8.1-alpine
+FROM golang:1.12.1-alpine
 
 RUN apk update && apk upgrade && apk add --no-cache bash git
 
