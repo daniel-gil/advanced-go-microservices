@@ -18,3 +18,5 @@ The [Cloud Native Interactive Landscape](https://github.com/cncf/landscape) filt
     - [Implement Go Microservice Registration with Consul](./Discovery/Simple/server/README.md)
     - [Implement Go Microservice Lookup with Consul](./Discovery/Simple/client/README.md)
     - [Implement Go Microservice Discovery and Configuration with Kubernetes](./Discovery/Kubernetes/README.md)
+3. Microservice Communication
+    - [Implement Sync RPC calls with Binary Protocols](./Communication/README.md)

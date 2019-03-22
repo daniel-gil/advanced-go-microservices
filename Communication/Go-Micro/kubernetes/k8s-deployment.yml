@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: go-micro
+  labels:
+    app: go-mirco
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: go-micro
+        tier: service
+    spec:
+      containers:
+      - name: go-micro
+        image: "cyrsis/test5:5.0.1"
+        ports:
+        - containerPort: 9090
+        env:
+        - name: PORT
+          value: "9090"
+        
+        # define resource requests and limits
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "125m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+
+        # for faster SIGKILL shutdown
+
+        
+        # check of gin-web is alive and healthy
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 9090
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 9090
+          initialDelaySeconds: 5
+          timeoutSeconds: 5       
+        
