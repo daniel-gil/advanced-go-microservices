@@ -22,3 +22,4 @@ The [Cloud Native Interactive Landscape](https://github.com/cncf/landscape) filt
     - [Implement Sync RPC calls with Binary Protocols](./Communication/Go-Micro/README.md)
     - [Using Circuit Breakers for Resilient Communication](./Communication/Go-Micro/client/README.md)
     - [Implement Message Queuing with RabbitMQ](./Communication/RabbitMQ/README.md)
+    - [Implement Publish/Subscribe with Apache Kafka](./Communication/Kafka/README.md)
