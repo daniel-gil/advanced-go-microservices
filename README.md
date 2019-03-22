@@ -21,3 +21,4 @@ The [Cloud Native Interactive Landscape](https://github.com/cncf/landscape) filt
 3. Microservice Communication
     - [Implement Sync RPC calls with Binary Protocols](./Communication/Go-Micro/README.md)
     - [Using Circuit Breakers for Resilient Communication](./Communication/Go-Micro/client/README.md)
+    - [Implement Message Queuing with RabbitMQ](./Communication/RabbitMQ/README.md)
