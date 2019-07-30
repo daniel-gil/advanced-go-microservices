@@ -365,11 +365,45 @@ Kubernetes is a portable, extensible open-source platform for managing container
 
 ### Concepts
 
+#### Node
+The `node` is a worker machine in Kubernetes (previously known as a `minion`). Each node has the services necessary to run pods and is managed by the master components. The services on a node include Docker, kubelet and kube-proxy.
+
+#### Kubelet
+The most important and most prominent controller in Kubernetes is the `Kubelet`, which is the primary implementer of the Pod and Node APIs that drive the container execution layer. It is the lowest level component in Kubernetes, and it communicates with the master node. 
+
+A `Kubelet` is responsible for what’s running on an individual machine, it's a process watcher like supervisord, but focused on running containers. It has one job: given a set of containers to run, make sure they are all running. 
+
 #### Pod
-The `pod` is the smallest deployble unit computation within Kubernetes. The `pod` contains our containers and it can be described using labels.
+The `pod` is the smallest deployble unit computation within Kubernetes. The `pod` contains our containers (1 or more), it can be described using labels and exists on a node.
+
+#### Service 
+The `service` is an abstraction for a logical collection of pods which handles requests. 
+Those requests comes either from inside the Kubernetes cluster (from one node to another) 
+or from outside the cluster (public requests to our master node that wants to hit a 
+specific microservice). The `service` tends to be load balancer.
+
+It is declassible within the Kubernetes cluster using a DNS name.
+
+```
+apiVersion: v1
+kind: Service
+metadata: 
+  name: gin-web
+  labels:
+    app: gin-web
+    tier: service
+spec:
+  # use NodePort here to be able to access a port on each node
+  type: NodePort
+  ports:
+  - port: 9090
+  selector:
+    app: gin-web
+```
 
 #### Deployment
-The `deployment` allows for the clarity of updates the pods. 
+The `deployment` defines a desired state and Kubernetes interprets this deployment 
+definition and does the rest for you. It allows for the clarity of updates the pods. 
 
 ```
 apiVersion: extensions/v1beta1
@@ -418,25 +452,6 @@ spec:
           timeoutSeconds: 5
 ```
 
-#### Service 
-The `service` is an abstraction for a logical collection of pods. It is declassible within the Kubernetes cluster using a DNS name.
-
-```
-apiVersion: v1
-kind: Service
-metadata: 
-  name: gin-web
-  labels:
-    app: gin-web
-    tier: service
-spec:
-  # use NodePort here to be able to access a port on each node
-  type: NodePort
-  ports:
-  - port: 9090
-  selector:
-    app: gin-web
-```
 
 #### Ingress
 The `ingress` allows the external access to defined services from the outside world into a Kubernetes cluster.
@@ -454,6 +469,16 @@ spec:
     serviceName: gin-web
     servicePort: 9090
 ```
+
+#### Kubernetes Cluster
+A Kubernetes Cluster is composed of a `Master` and one or several `Node/Kubelet` instances.
+
+The Kubernetes `master` has replication controllers that handle making sure that the deployment
+definitions are satisfied. It also contains:
+- *Deployment history*: to facilitate
+rollbacks (scalability or revert to the last replication controller).
+- *Service definition* for routing: it knows the cluster configuration (nodes and master)
+and which pods are running in each node.
 
 ### Minikube
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a VM on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
